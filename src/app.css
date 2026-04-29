@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800;900&display=swap');
+
+/* ===== CSS VARIABLES ===== */
+:root {
+  --accent: #4a7c59;
+  --accent-light: #52b788;
+  --accent-gold: #c9a84c;
+
+  --bg: #0f1113;
+  --card-bg: #16191d;
+  --header-bg: rgba(15, 17, 19, 0.92);
+  --input-bg: #1c2028;
+  --hover-bg: rgba(74, 124, 89, 0.12);
+  --tag-bg: rgba(255, 255, 255, 0.04);
+
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(74, 124, 89, 0.4);
+
+  --text-primary: #f0f2f5;
+  --text-secondary: #b0b8c4;
+  --text-muted: #6b7585;
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.4);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.22); }
+
+/* ===== UTILITIES ===== */
+button { cursor: pointer; }
+
+input[type="search"]::-webkit-search-cancel-button { display: none; }
+
+/* ===== PAGE TRANSITION ===== */
+.page-enter {
+  animation: fadeInUp 0.35s ease both;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SKELETON ===== */
+.skeleton {
+  background: linear-gradient(90deg, var(--card-bg) 25%, rgba(255,255,255,0.05) 50%, var(--card-bg) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
