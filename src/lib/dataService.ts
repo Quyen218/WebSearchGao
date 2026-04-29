@@ -50,6 +50,20 @@ function formatPrice(price: number): string {
   }).format(price);
 }
 
+function parseImageUrl(url: string): string {
+  if (!url) return '';
+  
+  // Chuyển đổi link chia sẻ của Google Drive thành link ảnh trực tiếp
+  const driveRegex = /(?:drive\.google\.com\/file\/d\/|drive\.google\.com\/open\?id=)([-\w]+)/;
+  const match = url.match(driveRegex);
+  if (match && match[1]) {
+    return `https://drive.google.com/uc?export=view&id=${match[1]}`;
+  }
+  
+  // Trả về url ban đầu (đã xoá khoảng trắng) nếu không phải link Drive
+  return url.trim();
+}
+
 export async function fetchProducts(): Promise<Product[]> {
   const response = await fetch(SHEET_URL);
   if (!response.ok) throw new Error('Failed to fetch product data');
@@ -117,7 +131,7 @@ export async function fetchProducts(): Promise<Product[]> {
       category: categoryIdx >= 0 ? row[categoryIdx] || 'Khác' : 'Khác',
       description: descIdx >= 0 ? row[descIdx] || '' : '',
       unit: unitIdx >= 0 ? row[unitIdx] || 'kg' : '',
-      image: imageIdx >= 0 ? row[imageIdx] || '' : '',
+      image: imageIdx >= 0 ? parseImageUrl(row[imageIdx]) : '',
       tags,
       inStock,
       showwebsite,

@@ -7,6 +7,17 @@
   const dispatch = createEventDispatcher();
   let visible = false;
   let imageError = false;
+  let retries = 0;
+
+  function handleImageError(e: Event) {
+    if (retries < 1 && product.image) {
+      retries++;
+      const img = e.target as HTMLImageElement;
+      img.src = product.image + (product.image.includes('?') ? '&' : '?') + 'retry=' + Date.now();
+    } else {
+      imageError = true;
+    }
+  }
 
   onMount(() => {
     setTimeout(() => (visible = true), 10);
@@ -69,7 +80,7 @@
         <img
           src={product.image}
           alt={product.name}
-          on:error={() => (imageError = true)}
+          on:error={handleImageError}
         />
       {:else}
         <div class="modal-placeholder" style="background: {gradient}">

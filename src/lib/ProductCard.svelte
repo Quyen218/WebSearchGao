@@ -5,9 +5,17 @@
   export let layout: 'grid' | 'list' = 'grid';
 
   let imageError = false;
+  let retries = 0;
 
-  function handleImageError() {
-    imageError = true;
+  function handleImageError(e: Event) {
+    if (retries < 1 && product.image) {
+      retries++;
+      const img = e.target as HTMLImageElement;
+      // Thêm cache-buster để trình duyệt thử tải lại ảnh thay vì dùng cache lỗi
+      img.src = product.image + (product.image.includes('?') ? '&' : '?') + 'retry=' + Date.now();
+    } else {
+      imageError = true;
+    }
   }
 
   function getInitials(name: string): string {

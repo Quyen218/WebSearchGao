@@ -20,13 +20,17 @@
   <div class="header-inner">
     <!-- Brand -->
     <button class="brand" on:click={() => dispatch("navigate", "home")}>
-      <div class="brand-logo">
-        <img
-          src="/logo.jpg"
-          alt="Gạo Lý Nhân Logo"
-          style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;"
-        />
+      <div class="brand-logo-wrap">
+        <div class="brand-logo">
+          <img
+            src="/logo.jpg"
+            alt="Gạo Lý Nhân Logo"
+            style="width: 100%; height: 100%; object-fit: contain; border-radius: 10px;"
+          />
+        </div>
+        <span class="since-text">Depuis 1999</span>
       </div>
+
       <div class="brand-text">
         <span class="brand-name">Gạo Lý Nhân</span>
         <span class="brand-tagline">Gạo ngon – Giá tốt</span>
@@ -201,6 +205,13 @@
     text-align: left;
   }
 
+  .brand-logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
   .brand-logo {
     width: 42px;
     height: 42px;
@@ -211,6 +222,18 @@
     align-items: center;
     justify-content: center;
     transition: border-color 0.2s;
+  }
+
+  .since-text {
+    font-size: 7px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: -0.2px;
+    line-height: 1;
+    white-space: nowrap;
+    width: 42px;
+    text-align: center;
+    display: block;
   }
 
   .brand:hover .brand-logo {
