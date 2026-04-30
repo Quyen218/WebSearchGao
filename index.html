@@ -34,9 +34,13 @@
       });
 
       // Phát hiện devtools qua kích thước cửa sổ
+      // Bỏ qua trên thiết bị cảm ứng (mobile/tablet) vì bàn phím ảo
+      // làm thu nhỏ window.innerHeight, gây false positive
+      var _isMobile = navigator.maxTouchPoints > 0;
       var _threshold = 160;
       var _blocked = false;
       function _detectDevtools() {
+        if (_isMobile) return; // Không kiểm tra trên điện thoại/tablet
         var widthDiff = window.outerWidth - window.innerWidth;
         var heightDiff = window.outerHeight - window.innerHeight;
         if ((widthDiff > _threshold || heightDiff > _threshold) && !_blocked) {
