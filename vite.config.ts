@@ -4,6 +4,7 @@ import javascriptObfuscator from 'vite-plugin-javascript-obfuscator'
 
 // https://vite.dev/config/
 export default defineConfig(({ command }) => ({
+  base: './',
   plugins: [
     svelte(),
     // Chỉ mã hóa khi build production
