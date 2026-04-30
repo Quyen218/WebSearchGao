@@ -11,8 +11,16 @@
 
   const dispatch = createEventDispatcher();
 
+  let reloading = false;
+
   function toggleLayout() {
     dispatch("layout", layout === "grid" ? "list" : "grid");
+  }
+
+  function handleReload() {
+    reloading = true;
+    dispatch("reload");
+    setTimeout(() => (reloading = false), 800);
   }
 </script>
 
@@ -167,6 +175,29 @@
           <strong>{resultCount}</strong> sản phẩm
         {/if}
       </span>
+      <button
+        class="reload-btn"
+        class:spinning={reloading}
+        on:click={handleReload}
+        title="Tải lại danh sách sản phẩm"
+        aria-label="Tải lại"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+        </svg>
+        <span>Tải lại</span>
+      </button>
     </div>
   {/if}
 </header>
@@ -398,6 +429,9 @@
     max-width: 1280px;
     margin: 0 auto;
     padding: 6px 20px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .result-count {
@@ -412,6 +446,44 @@
   .result-count em {
     font-style: normal;
     color: var(--text-secondary);
+  }
+
+  .reload-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    background: var(--input-bg);
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      border-color 0.18s,
+      color 0.18s,
+      background 0.18s;
+  }
+
+  .reload-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--hover-bg);
+  }
+
+  .reload-btn svg {
+    transition: transform 0.8s ease;
+  }
+
+  .reload-btn.spinning svg {
+    animation: spin 0.8s linear;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   @media (max-width: 640px) {

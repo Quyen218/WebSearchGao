@@ -133,6 +133,7 @@
   on:search={handleSearch}
   on:sort={handleSort}
   on:layout={handleLayout}
+  on:reload={() => loadProducts(true)}
 />
 
 <main class="main">
