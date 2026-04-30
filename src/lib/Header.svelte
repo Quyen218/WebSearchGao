@@ -351,7 +351,7 @@
     border: 1.5px solid var(--border);
     background: var(--input-bg);
     color: var(--text-primary);
-    font-size: 0.875rem;
+    font-size: 16px;
     font-family: inherit;
     width: 220px;
     transition:
@@ -392,7 +392,7 @@
     border: 1.5px solid var(--border);
     background: var(--input-bg);
     color: var(--text-primary);
-    font-size: 0.82rem;
+    font-size: 16px;
     font-family: inherit;
     cursor: pointer;
     outline: none;
