@@ -1,7 +1,10 @@
 import type { Product } from '../types';
 
-const SHEET_URL =
-  'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDo18sDQwvCHek9TDx-XhQexTXw7SF3GcLzYNAMufcg0BgZGj8byvDIc6TQZ0Rak6LGSXrSLU_4Ge_/pub?gid=0&single=true&output=csv';
+// Khi dev local: fetch trực tiếp từ Google Sheets
+// Khi deploy Vercel: dùng proxy API để tránh CORS
+const SHEET_URL = import.meta.env.DEV
+  ? 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRDo18sDQwvCHek9TDx-XhQexTXw7SF3GcLzYNAMufcg0BgZGj8byvDIc6TQZ0Rak6LGSXrSLU_4Ge_/pub?gid=0&single=true&output=csv'
+  : '/api/products';
 
 function parseCSV(text: string): string[][] {
   const rows: string[][] = [];
