@@ -15,6 +15,41 @@
 </head>
 
 <body>
+  <!-- Anti-devtools protection -->
+  <script>
+    (function () {
+      // Chặn chuột phải
+      document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+      // Chặn phím tắt mở devtools
+      document.addEventListener('keydown', function (e) {
+        // F12
+        if (e.key === 'F12') { e.preventDefault(); return false; }
+        // Ctrl+Shift+I / Ctrl+Shift+J / Ctrl+Shift+C
+        if (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'i', 'j', 'c'].includes(e.key)) { e.preventDefault(); return false; }
+        // Ctrl+U (view source)
+        if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) { e.preventDefault(); return false; }
+        // Ctrl+S (save page)
+        if (e.ctrlKey && (e.key === 's' || e.key === 'S')) { e.preventDefault(); return false; }
+      });
+
+      // Phát hiện devtools qua kích thước cửa sổ
+      var _threshold = 160;
+      var _blocked = false;
+      function _detectDevtools() {
+        var widthDiff = window.outerWidth - window.innerWidth;
+        var heightDiff = window.outerHeight - window.innerHeight;
+        if ((widthDiff > _threshold || heightDiff > _threshold) && !_blocked) {
+          _blocked = true;
+          document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0f1113;color:#fff;font-family:sans-serif;gap:12px"><span style="font-size:3rem">🔒</span><h2 style="margin:0">Truy cập bị từ chối</h2><p style="color:#888;margin:0">Vui lòng đóng Developer Tools để tiếp tục.</p></div>';
+        } else if (widthDiff <= _threshold && heightDiff <= _threshold && _blocked) {
+          _blocked = false;
+          location.reload();
+        }
+      }
+      setInterval(_detectDevtools, 1000);
+    })();
+  </script>
   <div id="app"></div>
   <script type="module" src="/src/main.ts"></script>
 </body>
